@@ -103,13 +103,13 @@ window.addEventListener("load", () => {
   if (!localStorage.getItem("product")) {
     localStorage.setItem("product", JSON.stringify(Products));
   }
-  if (location.pathname === "/admin/adminhomepage.html") {
+  if (location.pathname === "/admin/admin/adminhomepage.html") {
     loadAdminHomePage();
   }
-  if (location.pathname === "/index.html") {
+  if (location.pathname === "/admin/index.html") {
     loadHomePage();
   }
-  if (location.pathname === "/admin/addproduct.html") {
+  if (location.pathname === "/admin/admin/addproduct.html") {
     let parameterurl = window.location.search;
     let urlparams = new URLSearchParams(parameterurl);
     let productid = urlparams.get("id");
@@ -121,14 +121,14 @@ window.addEventListener("load", () => {
       pushproduct(product);
     }
   }
-  if (location.pathname === "/userpages/cart.html") {
+  if (location.pathname === "/admin/userpages/cart.html") {
     loadCartProduct();
   }
 
-  if (location.pathname === "/userpages/order.html") {
+  if (location.pathname === "/admin/userpages/order.html") {
     loadOrderPage();
   }
-  if (location.pathname === "/admin/orders.html") {
+  if (location.pathname === "/admin/admin/orders.html") {
     loadAdminOrder();
   }
 });
@@ -177,8 +177,8 @@ const login = () => {
   } else {
     sessionStorage.setItem("userId", loggedInUser.id);
     if (emailRef.value === "admin@admin.com")
-      location.replace("/admin/adminhomepage.html");
-    else location.replace("/index.html");
+      location.replace("/admin/admin/adminhomepage.html");
+    else location.replace("/admin/index.html");
   }
 };
 // email checking
@@ -215,11 +215,11 @@ const Signup = () => {
     password: passwordRef.value,
   });
   localStorage.setItem("user", JSON.stringify(user));
-  location.href = "/userpages/login.html";
+  location.href = "/admin/userpages/login.html";
 };
 //signout section
 const signout = () => {
-  location.replace("/userpages/login.html");
+  location.replace("/admin/userpages/login.html");
 };
 // loading Products in admin page
 const loadAdminHomePage = () => {
@@ -288,11 +288,11 @@ const Addproduct = () => {
     thumbnail: imageRef.value,
   });
   localStorage.setItem("product", JSON.stringify(products));
-  location.href = "/admin/adminhomepage.html";
+  location.href = "/admin/admin/adminhomepage.html";
 };
 // edit the product
 const editProductfunction = (id) => {
-  location.href = `/admin/addproduct.html?id=${id}`;
+  location.href = `/admin/admin/addproduct.html?id=${id}`;
 };
 //push product
 const pushproduct = (product) => {
@@ -318,7 +318,7 @@ const addToCartfunction = (id) => {
   let Addtocart = JSON.parse(localStorage.getItem("product"));
   const products = Addtocart.find((product) => product.id === parseInt(id));
   if (!sessionStorage.getItem("userId")) {
-    location.replace("/userpages/login.html");
+    location.replace("/admin/userpages/login.html");
   } else {
     let userId = parseInt(sessionStorage.getItem("userId"));
     let cart = [];
@@ -370,7 +370,7 @@ const loadCartProduct = () => {
       cartTableRef.innerHTML = body;
       totalRef.innerText = `Total - ₹ ${total}`;
     } else {
-      location.href = "/userpages/login.html";
+      location.href = "/admin/userpages/login.html";
     }
   }
 };
@@ -394,12 +394,12 @@ const checkout = () => {
       localStorage.setItem("cart", JSON.stringify(othersCart));
       localStorage.setItem("orders", JSON.stringify(orders));
       // updateCartCount();
-      location.href = "/index.html";
+      location.href = "/admin/index.html";
     } else {
-      Location.href = "/index.html";
+      Location.href = "/admin/index.html";
     }
   } else {
-    Location.href = "/userpages/login.html";
+    Location.href = "/admin/userpages/login.html";
   }
 };
 // load the user orders
@@ -431,10 +431,10 @@ const loadOrderPage = () => {
       }
       tableRef.innerHTML = body;
     } else {
-      location.href = "index.html";
+      location.href = "/admin/index.html";
     }
   } else {
-    location.href = "/userpages/login.html";
+    location.href = "/admin/userpages/login.html";
   }
 };
 // admin order load
@@ -492,9 +492,9 @@ const loadAdminOrder = () => {
         }
       }
     } else {
-      location.href = "index.html";
+      location.href = "/admin/index.html";
     }
   } else {
-    location.href = "/userpages/login.html";
+    location.href = "/admin/userpages/login.html";
   }
 };
